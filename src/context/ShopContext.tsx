@@ -6,8 +6,13 @@ interface IShopContext {
   currency: string;
   delivery_fee: number;
 }
-
-export const ShopContext = createContext<IShopContext | null>(null);
+// Provide a default value for the context
+const defaultShopContext: IShopContext = {
+  products: [],
+  currency: "$",
+  delivery_fee: 10,
+};
+export const ShopContext = createContext<IShopContext>(defaultShopContext);
 interface ShopContextProviderProps {
   children: ReactNode;
 }

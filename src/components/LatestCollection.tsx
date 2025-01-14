@@ -6,9 +6,6 @@ import ProductItems from "./ProductItems";
 const LatestCollection = () => {
   const shopContext = useContext(ShopContext);
 
-  if (!shopContext) {
-    return <div>Error: ShopContext is not provided!</div>;
-  }
   const { products } = shopContext;
   const [lastestProudcts, setLatestProducts] = useState<IProduct[] | null>([]);
 
