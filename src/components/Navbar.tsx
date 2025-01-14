@@ -5,7 +5,10 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <img src={assets.logo} alt="" className="w-36" />
+      {/* <img src={assets.logo} alt="" className="w-36" /> */}
+      <Link to="/">
+        <h1 className="w-[12rem] text-3xl tracking-widest">ELPIS</h1>
+      </Link>
       <ul className=" hidden sm:flex gap-5 text-sm text gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
@@ -59,11 +62,11 @@ const Navbar = () => {
       </div>
       {/* sidebar menu for smaller screen */}
       <div
-        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
-          visible ? "w-full" : "w-0"
+        className={`absolute top-0 right-0 bottom-0 overflow-hidden backdrop-blur-md bg-white/70 transition-all  ${
+          visible ? "w-1/2" : "w-0"
         }`}
       >
-        <div className="flex flex-col text-gray-600">
+        <div className="flex flex-col text-gray-600 z-1000">
           <div
             onClick={() => setVisible(false)}
             className="flex items-center gap-4 p-3 cursor-pointer"
