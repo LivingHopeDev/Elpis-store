@@ -4,9 +4,8 @@ import Title from "./Title";
 import { IProduct } from "../types/Products";
 import ProductItems from "./ProductItems";
 const LatestCollection = () => {
-  const shopContext = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
 
-  const { products } = shopContext;
   const [lastestProudcts, setLatestProducts] = useState<IProduct[] | null>([]);
 
   useEffect(() => {
