@@ -13,7 +13,7 @@ const Collection = () => {
   const [fileterProducts, setFilterProducts] = useState<IProduct[] | []>([]);
   const [category, setCategory] = useState<string[]>([]);
   const [subcategory, setSubcategory] = useState<string[]>([]);
-
+  const [sortType, setSortType] = useState("relevant");
   const toggleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (category.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -43,13 +43,34 @@ const Collection = () => {
     }
     setFilterProducts(productsFiltered);
   };
-  useEffect(() => {
-    setFilterProducts(products);
-  }, []);
+  const handleSort = () => {
+    let productFiltered = fileterProducts.slice();
+    switch (sortType) {
+      case "low-high":
+        setFilterProducts(
+          productFiltered.sort((a, b) => {
+            return a.price - b.price;
+          })
+        );
+        break;
+      case "high-low":
+        setFilterProducts(
+          productFiltered.sort((a, b) => {
+            return b.price - a.price;
+          })
+        );
+        break;
+      default:
+        handleFilterProduct();
+        break;
+    }
+  };
   useEffect(() => {
     handleFilterProduct();
   }, [category, subcategory]);
-
+  useEffect(() => {
+    handleSort();
+  }, [sortType]);
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* filter options */}
@@ -145,7 +166,10 @@ const Collection = () => {
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={"ALL"} text2={"COLLECTIONS"} />
 
-          <select className="border-2 border-gray-300 text-sm px-2">
+          <select
+            className="border-2 border-gray-300 text-sm px-2"
+            onChange={(e) => setSortType(e.target.value)}
+          >
             <option value="relavent">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="hig-low">Sort by: High to Low</option>
