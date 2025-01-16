@@ -4,11 +4,10 @@ import { assets } from "../assets/frontend_assets/assets";
 import Title from "../components/Title";
 import { IProduct } from "../types/Products";
 import ProductItems from "../components/ProductItems";
-
 const Collection = () => {
   const shopContext = useContext(ShopContext);
 
-  const { products } = shopContext;
+  const { products, showSearch, search } = shopContext;
   const [showFilter, setShowFilter] = useState(false);
   const [fileterProducts, setFilterProducts] = useState<IProduct[] | []>([]);
   const [category, setCategory] = useState<string[]>([]);
@@ -34,6 +33,11 @@ const Collection = () => {
     if (category.length > 0) {
       productsFiltered = productsFiltered.filter((item) =>
         category.includes(item.category)
+      );
+    }
+    if (showSearch && search) {
+      productsFiltered = productsFiltered.filter((item) =>
+        item.name.toLowerCase().includes(search)
       );
     }
     if (subcategory.length > 0) {
@@ -67,7 +71,7 @@ const Collection = () => {
   };
   useEffect(() => {
     handleFilterProduct();
-  }, [category, subcategory]);
+  }, [category, subcategory, showSearch, search]);
   useEffect(() => {
     handleSort();
   }, [sortType]);
