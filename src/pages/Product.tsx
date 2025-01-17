@@ -7,7 +7,7 @@ import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart, cartItems } = useContext(ShopContext);
   const [productDetails, setProductDetails] = useState<IProduct | null>(null);
   const [image, setImage] = useState<string>("");
   const [size, setSize] = useState<string>("");
@@ -19,7 +19,7 @@ const Product = () => {
       setImage(product.image?.[0]);
     }
   };
-  console.log(size);
+  console.log(cartItems);
   useEffect(() => {
     fetchProductDetails(productId!);
   }, [productId]);
@@ -74,7 +74,10 @@ const Product = () => {
               </div>
             ))}
           </div>
-          <button className="mt-8 bg-black text-white p-2 w-[8rem] active:bg-gray-700">
+          <button
+            onClick={() => addToCart(productDetails._id, size)}
+            className="mt-8 bg-black text-white p-2 w-[8rem] active:bg-gray-700"
+          >
             Add to Cart
           </button>
           <hr className="mt-10" />

@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { NavLink, Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { showSearch, setShowSearch } = useContext(ShopContext);
+  const { showSearch, setShowSearch, getCartCount } = useContext(ShopContext);
+  const [count, setCount] = useState("");
+
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       {/* <img src={assets.logo} alt="" className="w-36" /> */}
@@ -53,7 +55,7 @@ const Navbar = () => {
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="" className="w-5 min-w-5" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-[8px] text-white aspect-squar rounded-full">
-            2
+            {getCartCount()}
           </p>
         </Link>
         <img
